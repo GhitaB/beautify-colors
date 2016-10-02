@@ -93,8 +93,20 @@ $(document).ready(function() {
   };
 
 
-  function get_best_saturation() {
+  function get_max_saturation() {
     // return saturation of primary color
+    var max_saturation = 0;
+    var max_saturation_color = "color_1";
+    $.each(data.original, function(key, color) {
+      if(color.saturation > max_saturation) {
+        max_saturation = color.saturation;
+        max_saturation_color = key;
+      }
+    });
+    return {
+      max_saturation: max_saturation,
+      max_saturation_color: max_saturation_color
+    }
   };
 
 
@@ -123,7 +135,10 @@ $(document).ready(function() {
     data.original.color_4.saturation = hsl_color_4[1];
     data.original.color_5.saturation = hsl_color_5[1];
 
-    var best_saturation = get_best_saturation();
+    var max_saturation = get_max_saturation();
+
+    // TODO: continue here
+    // beautify colors saturation
 
     $("#color-final-1").css('background-color', data.original.color_1.value);
     $("#color-final-2").css('background-color', data.original.color_2.value);
