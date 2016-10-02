@@ -90,7 +90,12 @@ $(document).ready(function() {
     }
 
     return [h, s, l];
-  }
+  };
+
+
+  function get_best_saturation() {
+    // return saturation of primary color
+  };
 
 
   function beautify() {
@@ -117,6 +122,8 @@ $(document).ready(function() {
     data.original.color_3.saturation = hsl_color_3[1];
     data.original.color_4.saturation = hsl_color_4[1];
     data.original.color_5.saturation = hsl_color_5[1];
+
+    var best_saturation = get_best_saturation();
 
     $("#color-final-1").css('background-color', data.original.color_1.value);
     $("#color-final-2").css('background-color', data.original.color_2.value);
