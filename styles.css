@@ -85,3 +85,7 @@ button:hover {
   color: #FFFFFF;
   font-weight: bold;
 }
+
+input.jscolor {
+  width: 90%;
+}
