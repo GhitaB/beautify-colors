@@ -1,0 +1,79 @@
+/*
+  Colors
+  ======
+  #BDB491 - Indian Khaki (gray orange)
+  #8D7F47 - Shadow       (darker gray orange)
+  #D37A47 - Raw Sienna   (red)
+  #2F4F4F - Spectra      (blue)
+
+  Proportions
+  ===========
+  $dim15: 504px;
+  $dim13: 315px;
+  $dim12: 197px;
+  $dim11: 123px;
+  $dim10: 77px;
+  $dim9: 48px;
+  $dim8: 36px;
+  $dim7: 28px;
+  $dim6: 24px;
+  $dim5: 18px;
+  $dim4: 16px;
+  $dim3: 10px;
+  $dim2: 6px;
+  $dim1: 3px;
+  $dim0: 1px;
+*/
+
+body {
+  background-color: #BDB491;
+  font-family: Verdana, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #2F4F4F;
+  font-size: 48px;
+  text-align: center;
+}
+
+h4 {
+  color: #8D7F47;
+  font-size: 18px;
+  text-align: center;
+}
+
+div.container {
+  background-color: #FFFFFF;
+  padding: 24px;
+  border-radius: 10px;
+  width: 80%;
+  margin-left: 24px;
+  margin-right: 24px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+div.box {
+  min-height: 50px;
+  width: 10%;
+  padding: 24px;
+  background-color: #BDB491;
+  margin-right: 10px;
+  display: inline-block;
+  border-radius: 10px;
+}
+
+button {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  font-size: 28px;
+  color: #D37A47;
+}
