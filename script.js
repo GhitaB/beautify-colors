@@ -130,7 +130,7 @@ $(document).ready(function() {
   }
 
 
-  function get_max_saturation() {
+  function get_max_saturation_details() {
     // return saturation of primary color
     var max_saturation = 0;
     var max_saturation_color = "color_1";
@@ -183,18 +183,22 @@ $(document).ready(function() {
     data.original.color_5.saturation = hsl_color_5[1];
 
     // Get max saturation and color
-    var max_saturation = get_max_saturation();
+    var max_saturation_details = get_max_saturation_details();
+    var primary_saturation = max_saturation_details.max_saturation;
+    var primary_hue = eval("hsl_" + max_saturation_details.max_saturation_color + "[0]");
 
-    // Adjust all colors to have nice saturations (the color with max saturation will be the primary color)
-    var new_saturation_color_1 = nice_saturation(hsl_color_1[0], max_saturation);
-    var aaa = hue_distance_on_color_wheel(1, 3);
+    var beautified_saturation_color_1 = (3 + primary_saturation) / 4 - hue_distance_on_color_wheel(hsl_color_1[0], primary_hue);
+    var beautified_saturation_color_2 = (3 + primary_saturation) / 4 - hue_distance_on_color_wheel(hsl_color_2[0], primary_hue);
+    var beautified_saturation_color_3 = (3 + primary_saturation) / 4 - hue_distance_on_color_wheel(hsl_color_3[0], primary_hue);
+    var beautified_saturation_color_4 = (3 + primary_saturation) / 4 - hue_distance_on_color_wheel(hsl_color_4[0], primary_hue);
+    var beautified_saturation_color_5 = (3 + primary_saturation) / 4 - hue_distance_on_color_wheel(hsl_color_5[0], primary_hue);
 
     // HSL to RGB - beautified colors
-    var rgb_beautified_color_1 = hsl_to_rgb(hsl_color_1[0], 1, hsl_color_1[2]);
-    var rgb_beautified_color_2 = hsl_to_rgb(hsl_color_2[0], 1, hsl_color_2[2]);
-    var rgb_beautified_color_3 = hsl_to_rgb(hsl_color_3[0], 1, hsl_color_3[2]);
-    var rgb_beautified_color_4 = hsl_to_rgb(hsl_color_4[0], 1, hsl_color_4[2]);
-    var rgb_beautified_color_5 = hsl_to_rgb(hsl_color_5[0], 1, hsl_color_5[2]);
+    var rgb_beautified_color_1 = hsl_to_rgb(hsl_color_1[0], beautified_saturation_color_1, hsl_color_1[2]);
+    var rgb_beautified_color_2 = hsl_to_rgb(hsl_color_2[0], beautified_saturation_color_2, hsl_color_2[2]);
+    var rgb_beautified_color_3 = hsl_to_rgb(hsl_color_3[0], beautified_saturation_color_3, hsl_color_3[2]);
+    var rgb_beautified_color_4 = hsl_to_rgb(hsl_color_4[0], beautified_saturation_color_4, hsl_color_4[2]);
+    var rgb_beautified_color_5 = hsl_to_rgb(hsl_color_5[0], beautified_saturation_color_5, hsl_color_5[2]);
 
     // RGB to HEX - beautified colors
     data.beautified.color_1.value = rgb_to_hex(rgb_beautified_color_1[0], rgb_beautified_color_1[1], rgb_beautified_color_1[2]);
