@@ -82,9 +82,9 @@ $(document).ready(function() {
       var d = max - min;
       s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
       switch(max){
-          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-          case g: h = (b - r) / d + 2; break;
-          case b: h = (r - g) / d + 4; break;
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
       }
       h /= 6;
     }
@@ -93,29 +93,40 @@ $(document).ready(function() {
   };
 
 
-  function hsl_to_rgb(h, s, l){
-      var r, g, b;
+  function hsl_to_rgb(h, s, l) {
+    var r, g, b;
 
-      if(s == 0){
-          r = g = b = l; // achromatic
-      }else{
-          var hue2rgb = function hue2rgb(p, q, t){
-              if(t < 0) t += 1;
-              if(t > 1) t -= 1;
-              if(t < 1/6) return p + (q - p) * 6 * t;
-              if(t < 1/2) return q;
-              if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-              return p;
-          }
-
-          var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-          var p = 2 * l - q;
-          r = hue2rgb(p, q, h + 1/3);
-          g = hue2rgb(p, q, h);
-          b = hue2rgb(p, q, h - 1/3);
+    if(s == 0) {
+      r = g = b = l; // achromatic
+    } else {
+      var hue2rgb = function hue2rgb(p, q, t) {
+        if(t < 0) t += 1;
+        if(t > 1) t -= 1;
+        if(t < 1/6) return p + (q - p) * 6 * t;
+        if(t < 1/2) return q;
+        if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
       }
 
-      return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+      var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      var p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1/3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1/3);
+    }
+
+    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+  }
+
+
+  function component_to_hex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+  }
+
+
+  function rgb_to_hex(r, g, b) {
+    return "#" + component_to_hex(r) + component_to_hex(g) + component_to_hex(b);
   }
 
 
@@ -163,21 +174,23 @@ $(document).ready(function() {
 
     var max_saturation = get_max_saturation();
 
-    var rgb_beautified_color_1 = hsl_to_rgb(hsl_color_1[0], hsl_color_1[1], hsl_color_1[2]);
-    var rgb_beautified_color_2 = hsl_to_rgb(hsl_color_2[0], hsl_color_2[1], hsl_color_2[2]);
-    var rgb_beautified_color_3 = hsl_to_rgb(hsl_color_3[0], hsl_color_3[1], hsl_color_3[2]);
-    var rgb_beautified_color_4 = hsl_to_rgb(hsl_color_3[0], hsl_color_3[1], hsl_color_3[2]);
-    var rgb_beautified_color_5 = hsl_to_rgb(hsl_color_3[0], hsl_color_3[1], hsl_color_3[2]);
+    var rgb_beautified_color_1 = hsl_to_rgb(hsl_color_1[0], 1, hsl_color_1[2]);
+    var rgb_beautified_color_2 = hsl_to_rgb(hsl_color_2[0], 1, hsl_color_2[2]);
+    var rgb_beautified_color_3 = hsl_to_rgb(hsl_color_3[0], 1, hsl_color_3[2]);
+    var rgb_beautified_color_4 = hsl_to_rgb(hsl_color_4[0], 1, hsl_color_4[2]);
+    var rgb_beautified_color_5 = hsl_to_rgb(hsl_color_5[0], 1, hsl_color_5[2]);
 
-    // TODO: continue here
-    // rgb to hex
-    // beautify colors saturation
+    data.beautified.color_1.value = rgb_to_hex(rgb_beautified_color_1[0], rgb_beautified_color_1[1], rgb_beautified_color_1[2]);
+    data.beautified.color_2.value = rgb_to_hex(rgb_beautified_color_2[0], rgb_beautified_color_2[1], rgb_beautified_color_2[2]);
+    data.beautified.color_3.value = rgb_to_hex(rgb_beautified_color_3[0], rgb_beautified_color_3[1], rgb_beautified_color_3[2]);
+    data.beautified.color_4.value = rgb_to_hex(rgb_beautified_color_4[0], rgb_beautified_color_4[1], rgb_beautified_color_4[2]);
+    data.beautified.color_5.value = rgb_to_hex(rgb_beautified_color_5[0], rgb_beautified_color_5[1], rgb_beautified_color_5[2]);
 
-    $("#color-final-1").css('background-color', data.original.color_1.value);
-    $("#color-final-2").css('background-color', data.original.color_2.value);
-    $("#color-final-3").css('background-color', data.original.color_3.value);
-    $("#color-final-4").css('background-color', data.original.color_4.value);
-    $("#color-final-5").css('background-color', data.original.color_5.value);
+    $("#color-final-1").css('background-color', data.beautified.color_1.value);
+    $("#color-final-2").css('background-color', data.beautified.color_2.value);
+    $("#color-final-3").css('background-color', data.beautified.color_3.value);
+    $("#color-final-4").css('background-color', data.beautified.color_4.value);
+    $("#color-final-5").css('background-color', data.beautified.color_5.value);
   };
 
   $("input.jscolor").on("change", set_background_color);
