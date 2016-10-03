@@ -154,48 +154,56 @@ $(document).ready(function() {
 
 
   function beautify() {
+    // HEX - original colors
     data.original.color_1.value = "#" + $("#color-original-1").val();
     data.original.color_2.value = "#" + $("#color-original-2").val();
     data.original.color_3.value = "#" + $("#color-original-3").val();
     data.original.color_4.value = "#" + $("#color-original-4").val();
     data.original.color_5.value = "#" + $("#color-original-5").val();
 
+    // HEX to RGB - original colors
     var rgb_color_1 = hex_to_rgb(data.original.color_1.value);
     var rgb_color_2 = hex_to_rgb(data.original.color_2.value);
     var rgb_color_3 = hex_to_rgb(data.original.color_3.value);
     var rgb_color_4 = hex_to_rgb(data.original.color_4.value);
     var rgb_color_5 = hex_to_rgb(data.original.color_5.value);
 
+    // RGB to HSL - original colors
     var hsl_color_1 = rgb_to_hsl(rgb_color_1[0], rgb_color_1[1], rgb_color_1[2]);
     var hsl_color_2 = rgb_to_hsl(rgb_color_2[0], rgb_color_2[1], rgb_color_2[2]);
     var hsl_color_3 = rgb_to_hsl(rgb_color_3[0], rgb_color_3[1], rgb_color_3[2]);
     var hsl_color_4 = rgb_to_hsl(rgb_color_4[0], rgb_color_4[1], rgb_color_4[2]);
     var hsl_color_5 = rgb_to_hsl(rgb_color_5[0], rgb_color_5[1], rgb_color_5[2]);
 
+    // Saturation - original colors
     data.original.color_1.saturation = hsl_color_1[1];
     data.original.color_2.saturation = hsl_color_2[1];
     data.original.color_3.saturation = hsl_color_3[1];
     data.original.color_4.saturation = hsl_color_4[1];
     data.original.color_5.saturation = hsl_color_5[1];
 
+    // Get max saturation and color
     var max_saturation = get_max_saturation();
 
+    // Adjust all colors to have nice saturations (the color with max saturation will be the primary color)
+    var new_saturation_color_1 = nice_saturation(hsl_color_1[0], max_saturation);
+    var aaa = hue_distance_on_color_wheel(1, 3);
+
+    // HSL to RGB - beautified colors
     var rgb_beautified_color_1 = hsl_to_rgb(hsl_color_1[0], 1, hsl_color_1[2]);
     var rgb_beautified_color_2 = hsl_to_rgb(hsl_color_2[0], 1, hsl_color_2[2]);
     var rgb_beautified_color_3 = hsl_to_rgb(hsl_color_3[0], 1, hsl_color_3[2]);
     var rgb_beautified_color_4 = hsl_to_rgb(hsl_color_4[0], 1, hsl_color_4[2]);
     var rgb_beautified_color_5 = hsl_to_rgb(hsl_color_5[0], 1, hsl_color_5[2]);
 
+    // RGB to HEX - beautified colors
     data.beautified.color_1.value = rgb_to_hex(rgb_beautified_color_1[0], rgb_beautified_color_1[1], rgb_beautified_color_1[2]);
     data.beautified.color_2.value = rgb_to_hex(rgb_beautified_color_2[0], rgb_beautified_color_2[1], rgb_beautified_color_2[2]);
     data.beautified.color_3.value = rgb_to_hex(rgb_beautified_color_3[0], rgb_beautified_color_3[1], rgb_beautified_color_3[2]);
     data.beautified.color_4.value = rgb_to_hex(rgb_beautified_color_4[0], rgb_beautified_color_4[1], rgb_beautified_color_4[2]);
     data.beautified.color_5.value = rgb_to_hex(rgb_beautified_color_5[0], rgb_beautified_color_5[1], rgb_beautified_color_5[2]);
 
-
-    var aaa = hue_distance_on_color_wheel(1, 3);
-    // TODO: adjust saturation using hue distance between primary color and others
-
+    // Show beautified colors
     $("#color-final-1").css('background-color', data.beautified.color_1.value);
     $("#color-final-2").css('background-color', data.beautified.color_2.value);
     $("#color-final-3").css('background-color', data.beautified.color_3.value);
