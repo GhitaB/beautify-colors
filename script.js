@@ -147,6 +147,12 @@ $(document).ready(function() {
   };
 
 
+  function hue_distance_on_color_wheel(hue1, hue2) {
+    abs_distance = Math.abs(hue1 - hue2);
+    return Math.min(abs_distance, 10 - abs_distance);
+  }
+
+
   function beautify() {
     data.original.color_1.value = "#" + $("#color-original-1").val();
     data.original.color_2.value = "#" + $("#color-original-2").val();
@@ -185,6 +191,10 @@ $(document).ready(function() {
     data.beautified.color_3.value = rgb_to_hex(rgb_beautified_color_3[0], rgb_beautified_color_3[1], rgb_beautified_color_3[2]);
     data.beautified.color_4.value = rgb_to_hex(rgb_beautified_color_4[0], rgb_beautified_color_4[1], rgb_beautified_color_4[2]);
     data.beautified.color_5.value = rgb_to_hex(rgb_beautified_color_5[0], rgb_beautified_color_5[1], rgb_beautified_color_5[2]);
+
+
+    var aaa = hue_distance_on_color_wheel(1, 3);
+    // TODO: adjust saturation using hue distance between primary color and others
 
     $("#color-final-1").css('background-color', data.beautified.color_1.value);
     $("#color-final-2").css('background-color', data.beautified.color_2.value);
